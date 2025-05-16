@@ -1,7 +1,8 @@
 import "../styles/PhotoListItem.scss";
 
-const PhotoListItem = ({ id, location, urls, user }) => {
+const PhotoListItem = ({ photo }) => {
   /* Insert React */
+  const { id, location, urls, user } = photo;
   return(
       <div className="photo-list-item" key={id}>
       <img src={urls.regular} alt="Regular size image" className="photo-regular" />
