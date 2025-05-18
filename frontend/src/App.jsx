@@ -24,7 +24,7 @@ const App = () => {
       toggleFavourite={toggleFavourite}
       setDisplayModal={setDisplayModal}
       />
-      {displayModal && <PhotoDetailsModal/>}      
+      {displayModal && <PhotoDetailsModal setDisplayModal={setDisplayModal}/>}      
     </div>
     </>
   );
