@@ -3,6 +3,7 @@ import HomeRoute from './components/HomeRoute';
 import photos from './mocks/photos';
 import topics from './mocks/topics';
 import { useState } from 'react';
+import PhotoDetailsModal from './routes/PhotoDetailsModal';
 
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
       topics={topics}
       favourites={favourites}
       toggleFavourite={toggleFavourite}/>
+      <PhotoDetailsModal/>
     </div>
     </>
   );
