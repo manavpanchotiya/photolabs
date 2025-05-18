@@ -4,7 +4,7 @@ import TopNavigation from "./TopNavigationBar"
 const HomeRoute = ({ photos, topics, favourites, toggleFavourite }) => {
     return (
         <div className="home-route">
-            <TopNavigation topics={topics}/>
+            <TopNavigation topics={topics} favourites={favourites}/>
             <PhotoList photos={photos} favourites={favourites}
         toggleFavourite={toggleFavourite}/>
         </div>
