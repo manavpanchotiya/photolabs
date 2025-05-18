@@ -8,6 +8,7 @@ import PhotoDetailsModal from './routes/PhotoDetailsModal';
 
 const App = () => {
   const [favourites, setFavourites] = useState([]);
+  const [displayModal, setDisplayModal] = useState(false);
 
   const toggleFavourite = (photoId) => {
     setFavourites((prev) =>
@@ -20,8 +21,10 @@ const App = () => {
       photos={photos}
       topics={topics}
       favourites={favourites}
-      toggleFavourite={toggleFavourite}/>
-      <PhotoDetailsModal/>
+      toggleFavourite={toggleFavourite}
+      setDisplayModal={setDisplayModal}
+      />
+      {displayModal && <PhotoDetailsModal/>}      
     </div>
     </>
   );
