@@ -10,10 +10,7 @@ const App = () => {
 
   const toggleFavourite = (photoId) => {
     setFavourites((prev) =>
-      prev.includes(photoId)
-        ? prev.filter((id) => id !== photoId)
-        : [...prev, photoId]
-    );
+      prev.includes(photoId) ? prev.filter((id) => id !== photoId) : [...prev, photoId]);
   };
     return (
     <>
