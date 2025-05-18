@@ -25,6 +25,7 @@ const App = () => {
     <div className="App">
       {photos.map((photo, index) => (
         <PhotoListItem key={index} photo={photo} />
+        
       ))}
     </div>
   );
