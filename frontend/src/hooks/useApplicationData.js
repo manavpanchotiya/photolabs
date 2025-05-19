@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useEffect } from "react";
 
 export const ACTIONS = {
   FAV_PHOTO_ADDED: 'FAV_PHOTO_ADDED',
@@ -13,10 +13,18 @@ const initialState = {
   favourites: [],
   displayModal: false,
   selectedPhoto: null,
+  photoData: [],
+  topicData: []
 };
 
 function reducer(state, action) {
   switch (action.type) {
+    case ACTIONS.SET_PHOTO_DATA:
+      return {
+        ...state,
+        photoData: action.payload
+      };
+
     case ACTIONS.FAV_PHOTO_ADDED:
       return {
         ...state,
@@ -41,7 +49,7 @@ function reducer(state, action) {
         ...state,
         displayModal: action.payload
       };
-
+    
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`
@@ -51,6 +59,12 @@ function reducer(state, action) {
 
 const useApplicationData = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(()=> {
+  fetch('/api/photos')
+    .then((response) => response.json())
+    .then((data) => dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data }))
+  }, []);
 
   const updateToFavPhotoIds = (photoId) => {
     const isFav = state.favourites.includes(photoId);

@@ -1,5 +1,6 @@
 import PhotoList from "./PhotoList"
 import TopNavigation from "./TopNavigationBar"
+import '../styles/HomeRoute.scss'
 
 const HomeRoute = ({ photos, topics, favourites, toggleFavourite, setDisplayModal, setSelectedPhoto}) => {
     return (

@@ -1,7 +1,5 @@
 import './App.scss';
 import HomeRoute from './components/HomeRoute';
-import photos from './mocks/photos';
-import topics from './mocks/topics';
 import PhotoDetailsModal from './routes/PhotoDetailsModal';
 import useApplicationData from './hooks/useApplicationData';
 
@@ -14,13 +12,15 @@ const App = () => {
     onClosePhotoDetailsModal,
     setDisplayModal
   } = useApplicationData();
-    
+  
+  console.log("photo data", state.photoData);
+
   return (
     <>
     <div className="App">
       <HomeRoute 
-      photos={photos}
-      topics={topics}
+      photos={state.photoData}
+      topics={state.topicData}
       favourites={state.favourites}
       toggleFavourite={updateToFavPhotoIds}
       setDisplayModal={setDisplayModal}
