@@ -26,11 +26,15 @@ const App = () => {
       setDisplayModal={setDisplayModal}
       setSelectedPhoto={setSelectedPhoto}
       />
-      
+
       {/* only works if displayModal is true */}
       {displayModal && <PhotoDetailsModal
       setDisplayModal={setDisplayModal}
-      photo={selectedPhoto}/>}
+      photo={selectedPhoto}
+      toggleFavourite={toggleFavourite}
+      isFavourite={(photoId)=> favourites.includes(photoId)}
+            
+      />}
     </div>
     </>
   );
