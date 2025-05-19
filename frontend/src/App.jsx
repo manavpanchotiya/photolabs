@@ -9,6 +9,7 @@ import PhotoDetailsModal from './routes/PhotoDetailsModal';
 const App = () => {
   const [favourites, setFavourites] = useState([]);
   const [displayModal, setDisplayModal] = useState(false);
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
 
   const toggleFavourite = (photoId) => {
     setFavourites((prev) =>
@@ -23,8 +24,13 @@ const App = () => {
       favourites={favourites}
       toggleFavourite={toggleFavourite}
       setDisplayModal={setDisplayModal}
+      setSelectedPhoto={setSelectedPhoto}
       />
-      {displayModal && <PhotoDetailsModal setDisplayModal={setDisplayModal}/>}      
+      
+      {/* only works if displayModal is true */}
+      {displayModal && <PhotoDetailsModal
+      setDisplayModal={setDisplayModal}
+      photo={selectedPhoto}/>}
     </div>
     </>
   );

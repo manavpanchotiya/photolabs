@@ -2,7 +2,7 @@ import "../styles/PhotoListItem.scss";
 import PhotoFavButton from "./PhotoFavButton";
 
 
-const PhotoListItem = ({ photo, isFavourite, toggleFavourite, setDisplayModal }) => {
+const PhotoListItem = ({ photo, isFavourite, toggleFavourite, setDisplayModal, setSelectedPhoto }) => {
   /* Insert React */
   const { id, location, urls, user } = photo;
   return(
@@ -15,7 +15,10 @@ const PhotoListItem = ({ photo, isFavourite, toggleFavourite, setDisplayModal })
       src={urls.regular} 
       alt="Regular size image"
       className="photo-list__image"
-      onClick={()=> setDisplayModal(true)}
+      onClick={()=> 
+        {setSelectedPhoto(photo);
+        setDisplayModal(true);
+      }}
       />
             
       <div className="photo-list__user-details">
