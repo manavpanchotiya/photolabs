@@ -1,10 +1,14 @@
 import '../styles/PhotoDetailsModal.scss'
 import closeSymbol from '../assets/closeSymbol.svg';
 import PhotoFavButton from "../components/PhotoFavButton";
+import PhotoList from '../components/PhotoList';
 
-const PhotoDetailsModal = ({setDisplayModal, photo, toggleFavourite, isFavourite}) => {
+
+const PhotoDetailsModal = ({setDisplayModal, photo, toggleFavourite, isFavourite, favourites}) => {
   console.log('clicked photo data:', photo);
   
+  const similarPhotoArray = Object.values(photo.similar_photos);
+
   return (
     <div className="photo-details-modal">
       <div className='photo-details-modal__top-bar'>
@@ -31,19 +35,11 @@ const PhotoDetailsModal = ({setDisplayModal, photo, toggleFavourite, isFavourite
         <h2>Similar Photos</h2>
         
         <div className='photo-details-modal__images'>
-          {Object.values(photo.similar_photos).map((similarPhoto, index) => (
-          <div key={index}>
-          <PhotoFavButton
-            isFavourite={isFavourite(similarPhoto.id)}
-            onClick={() => toggleFavourite(similarPhoto.id)}
+          <PhotoList
+            photos={similarPhotoArray}
+            favourites={favourites}
+            toggleFavourite={toggleFavourite}
           />
-          <img
-            src={similarPhoto.urls.regular} 
-            alt="similar image"
-            className='photo-details-modal__similar-image'
-          />
-        </div>            
-        ))}
       </div>
 
       </div>

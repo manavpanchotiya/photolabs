@@ -32,6 +32,7 @@ const App = () => {
       setDisplayModal={setDisplayModal}
       photo={selectedPhoto}
       toggleFavourite={toggleFavourite}
+      favourites={favourites}
       isFavourite={(photoId)=> favourites.includes(photoId)}
             
       />}
