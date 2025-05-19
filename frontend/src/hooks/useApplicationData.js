@@ -1,34 +1,76 @@
-import { useState } from "react";
+import { useReducer } from "react";
+
+export const ACTIONS = {
+  FAV_PHOTO_ADDED: 'FAV_PHOTO_ADDED',
+  FAV_PHOTO_REMOVED: 'FAV_PHOTO_REMOVED',
+  SET_PHOTO_DATA: 'SET_PHOTO_DATA',
+  SET_TOPIC_DATA: 'SET_TOPIC_DATA',
+  SELECT_PHOTO: 'SELECT_PHOTO',
+  DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS'
+};
+
+const initialState = {
+  favourites: [],
+  displayModal: false,
+  selectedPhoto: null,
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case ACTIONS.FAV_PHOTO_ADDED:
+      return {
+        ...state,
+        favourites: [...state.favourites, action.payload]
+      };
+
+    case ACTIONS.FAV_PHOTO_REMOVED:
+      return {
+        ...state,
+        favourites: state.favourites.filter(id => id !== action.payload)
+      };
+
+    case ACTIONS.SELECT_PHOTO:
+      return {
+        ...state,
+        selectedPhoto: action.payload,
+        displayModal: true
+      };
+
+    case ACTIONS.DISPLAY_PHOTO_DETAILS:
+      return {
+        ...state,
+        displayModal: action.payload
+      };
+
+    default:
+      throw new Error(
+        `Tried to reduce with unsupported action type: ${action.type}`
+      );
+  }
+}
 
 const useApplicationData = () => {
-  const [state, setState] = useState({
-    favourites: [],
-    displayModal: false,
-    selectedPhoto: null,
-  });
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const updateToFavPhotoIds = (photoId) => {
-    setState(prev => ({
-        ...prev,favourites: prev.favourites.includes(photoId) ? prev.favourites.filter(id => id !== photoId) : [...prev.favourites, photoId]
-    }));
+    const isFav = state.favourites.includes(photoId);
+    dispatch({
+      type: isFav ? ACTIONS.FAV_PHOTO_REMOVED : ACTIONS.FAV_PHOTO_ADDED,
+      payload: photoId
+    });
   };
 
   const setPhotoSelected = (photo) => {
-    setState(prev => ({
-      ...prev, selectedPhoto:photo, displayModal:true,
-    }));
+    dispatch({ type: ACTIONS.SELECT_PHOTO, payload: photo });
   };
 
   const onClosePhotoDetailsModal = () => {
-    setState(prev => ({
-      ...prev, selectedPhoto: null, displayModal: false
-    }));
+    dispatch({ type: ACTIONS.SELECT_PHOTO, payload: null });
+    dispatch({ type: ACTIONS.DISPLAY_PHOTO_DETAILS, payload: false });
   };
 
   const setDisplayModal = (value) => {
-    setState((prev) => ({
-      ...prev, displayModal: value
-    }));
+    dispatch({ type: ACTIONS.DISPLAY_PHOTO_DETAILS, payload: value });
   };
 
   return {
@@ -39,4 +81,5 @@ const useApplicationData = () => {
     setDisplayModal,
   };
 };
-export default useApplicationData;  
+
+export default useApplicationData;
