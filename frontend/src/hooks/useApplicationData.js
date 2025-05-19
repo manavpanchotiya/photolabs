@@ -25,6 +25,12 @@ function reducer(state, action) {
         photoData: action.payload
       };
 
+    case ACTIONS.SET_TOPIC_DATA:
+      return {
+        ...state,
+        topicData: action.payload
+      };
+
     case ACTIONS.FAV_PHOTO_ADDED:
       return {
         ...state,
@@ -60,10 +66,18 @@ function reducer(state, action) {
 const useApplicationData = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  //fetch photos from DB
   useEffect(()=> {
   fetch('/api/photos')
     .then((response) => response.json())
     .then((data) => dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data }))
+  }, []);
+
+  //fetch topics from DB
+  useEffect(() => {
+    fetch('/api/topics')
+      .then((response) => response.json())
+      .then((data) => dispatch({type: ACTIONS.SET_TOPIC_DATA, payload: data}))
   }, []);
 
   const updateToFavPhotoIds = (photoId) => {
