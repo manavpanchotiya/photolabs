@@ -2,42 +2,46 @@ import './App.scss';
 import HomeRoute from './components/HomeRoute';
 import photos from './mocks/photos';
 import topics from './mocks/topics';
-import { useState } from 'react';
 import PhotoDetailsModal from './routes/PhotoDetailsModal';
-
+import useApplicationData from './hooks/useApplicationData';
 
 const App = () => {
-  const [favourites, setFavourites] = useState([]);
-  const [displayModal, setDisplayModal] = useState(false);
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
-
-  const toggleFavourite = (photoId) => {
-    setFavourites((prev) =>
-      prev.includes(photoId) ? prev.filter((id) => id !== photoId) : [...prev, photoId]);
-  };
-    return (
+  const {
+    state,
+    setPhotoSelected,
+    updateToFavPhotoIds,
+    
+    onClosePhotoDetailsModal,
+    setDisplayModal
+  } = useApplicationData();
+    
+  return (
     <>
     <div className="App">
       <HomeRoute 
       photos={photos}
       topics={topics}
-      favourites={favourites}
-      toggleFavourite={toggleFavourite}
+      favourites={state.favourites}
+      toggleFavourite={updateToFavPhotoIds}
       setDisplayModal={setDisplayModal}
-      setSelectedPhoto={setSelectedPhoto}
+      setSelectedPhoto={setPhotoSelected}
       />
 
       {/* only works if displayModal is true */}
-      {displayModal && <PhotoDetailsModal
-      setDisplayModal={setDisplayModal}
-      photo={selectedPhoto}
-      toggleFavourite={toggleFavourite}
-      favourites={favourites}
-      isFavourite={(photoId)=> favourites.includes(photoId)}
+      {state.displayModal && state.selectedPhoto && (
+        <PhotoDetailsModal
+        setDisplayModal={onClosePhotoDetailsModal}
+        photo={state.selectedPhoto}
+        toggleFavourite={updateToFavPhotoIds}
+        favourites={state.favourites}
+        isFavourite={(photoId)=> state.favourites.includes(photoId)}
             
-      />}
+      />)}
+      
     </div>
     </>
   );
 };
+
+
 export default App;
