@@ -97,13 +97,6 @@ const handleTopicClick = (topicId) => {
       .then((data) => dispatch({type: ACTIONS.SET_TOPIC_DATA, payload: data}))
   }, []);
 
-  // //fetch photos by topic from DB
-  // useEffect(() => {
-  //   fetch(`http://localhost:8001/api/topics/${topicId}/photos`)
-  //     .then((response) => response.json())
-  //     .then((data) => dispatch({type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: data}))
-  // }, [topicId]);
-
   const updateToFavPhotoIds = (photoId) => {
     const isFav = state.favourites.includes(photoId);
     dispatch({
