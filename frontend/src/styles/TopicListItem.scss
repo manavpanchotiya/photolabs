@@ -14,3 +14,14 @@
     color: #111;
   }
 }
+
+.topic-list__item button {
+  background-color: white;
+  border: white;
+  color: black;
+
+  &:hover {
+    text-decoration: overline;
+    color: #111;
+  }
+}

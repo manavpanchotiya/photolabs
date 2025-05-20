@@ -6,7 +6,8 @@ export const ACTIONS = {
   SET_PHOTO_DATA: 'SET_PHOTO_DATA',
   SET_TOPIC_DATA: 'SET_TOPIC_DATA',
   SELECT_PHOTO: 'SELECT_PHOTO',
-  DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS'
+  DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS',
+  GET_PHOTOS_BY_TOPICS: 'GET_PHOTOS_BY_TOPICS'
 };
 
 const initialState = {
@@ -29,6 +30,12 @@ function reducer(state, action) {
       return {
         ...state,
         topicData: action.payload
+      };
+
+    case ACTIONS.GET_PHOTOS_BY_TOPICS:
+      return {
+        ...state,
+        photoData: action.payload
       };
 
     case ACTIONS.FAV_PHOTO_ADDED:
@@ -66,6 +73,16 @@ function reducer(state, action) {
 const useApplicationData = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+const handleTopicClick = (topicId) => {
+  fetch(`http://localhost:8001/api/topics/${topicId}/photos`)
+    .then(res => res.json())
+    .then(data => {
+      dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data });
+    })
+    .catch(err => console.error("Error fetching topic photos:", err));
+};
+
+
   //fetch photos from DB
   useEffect(()=> {
   fetch('/api/photos')
@@ -79,6 +96,13 @@ const useApplicationData = () => {
       .then((response) => response.json())
       .then((data) => dispatch({type: ACTIONS.SET_TOPIC_DATA, payload: data}))
   }, []);
+
+  // //fetch photos by topic from DB
+  // useEffect(() => {
+  //   fetch(`http://localhost:8001/api/topics/${topicId}/photos`)
+  //     .then((response) => response.json())
+  //     .then((data) => dispatch({type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: data}))
+  // }, [topicId]);
 
   const updateToFavPhotoIds = (photoId) => {
     const isFav = state.favourites.includes(photoId);
@@ -107,6 +131,7 @@ const useApplicationData = () => {
     setPhotoSelected,
     onClosePhotoDetailsModal,
     setDisplayModal,
+    handleTopicClick
   };
 };
 

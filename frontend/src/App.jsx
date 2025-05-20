@@ -8,7 +8,7 @@ const App = () => {
     state,
     setPhotoSelected,
     updateToFavPhotoIds,
-    
+    handleTopicClick,
     onClosePhotoDetailsModal,
     setDisplayModal
   } = useApplicationData();
@@ -25,6 +25,7 @@ const App = () => {
       toggleFavourite={updateToFavPhotoIds}
       setDisplayModal={setDisplayModal}
       setSelectedPhoto={setPhotoSelected}
+      onTopicClick={handleTopicClick}
       />
 
       {/* only works if displayModal is true */}
