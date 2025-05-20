@@ -5,7 +5,7 @@ import PhotoList from '../components/PhotoList';
 
 
 const PhotoDetailsModal = ({setDisplayModal, photo, toggleFavourite, isFavourite, favourites}) => {
-  console.log('clicked photo data:', photo);
+  
   
   const similarPhotoArray = Object.values(photo.similar_photos);
 

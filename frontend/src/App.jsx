@@ -13,8 +13,7 @@ const App = () => {
     setDisplayModal
   } = useApplicationData();
   
-  console.log("photo data", state.photoData);
-
+ 
   return (
     <>
     <div className="App">
