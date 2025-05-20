@@ -1,12 +1,39 @@
 # Photolabs
 
-The PhotoLabs project for the Web Development React course programming.
+A simple photo gallery app built with React that allows users to view photos by topics and mark them as favourites.
 
 ## Setup
 
 [Backend Setup Instructions](/backend/)
 
 [Frontend Setup Instructions](/frontend/)
+
+## Dependencies
+Backend
+
+    express – Web server framework
+
+    body-parser – Parses incoming request bodies
+
+    cors – Enables cross-origin requests
+
+    dotenv – Loads environment variables
+
+    helmet – Secures HTTP headers
+
+    pg – PostgreSQL client
+
+    socket.io – Real-time bidirectional communication
+
+    ws – WebSocket support
+
+Frontend
+
+    react – Frontend library
+
+    react-dom – DOM bindings for React
+
+    vite – Fast frontend tooling
 
 ## Screenshots
 
