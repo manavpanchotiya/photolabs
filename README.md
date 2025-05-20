@@ -9,7 +9,7 @@ A simple photo gallery app built with React that allows users to view photos by 
 [Frontend Setup Instructions](/frontend/)
 
 ## Dependencies
-Backend
+### Backend
 
     express – Web server framework
 
@@ -27,7 +27,7 @@ Backend
 
     ws – WebSocket support
 
-Frontend
+### Frontend
 
     react – Frontend library
 
