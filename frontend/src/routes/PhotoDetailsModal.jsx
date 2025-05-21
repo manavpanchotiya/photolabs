@@ -4,13 +4,13 @@ import PhotoFavButton from "../components/PhotoFavButton";
 import PhotoList from '../components/PhotoList';
 
 
-const PhotoDetailsModal = ({setDisplayModal, photo, toggleFavourite, isFavourite, favourites}) => {
+const PhotoDetailsModal = ({setDisplayModal, photo, toggleFavourite, isFavourite, favourites, darkMode}) => {
   
   
   const similarPhotoArray = Object.values(photo.similar_photos);
 
   return (
-    <div className="photo-details-modal">
+    <div className={`photo-details-modal ${darkMode ? 'dark' : ''}`}>
       <div className='photo-details-modal__top-bar'>
       <button className="photo-details-modal__close-button" onClick={()=> setDisplayModal(false)}>
         <img src={closeSymbol} alt="close symbol" />

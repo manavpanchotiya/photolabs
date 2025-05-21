@@ -10,13 +10,14 @@ const App = () => {
     updateToFavPhotoIds,
     handleTopicClick,
     onClosePhotoDetailsModal,
-    setDisplayModal
+    setDisplayModal,
+    toggleDarkMode
   } = useApplicationData();
   
  
   return (
     <>
-    <div className="App">
+    <div className={`App ${state.darkMode ? 'dark-mode' : ''}`}>
       <HomeRoute 
       photos={state.photoData}
       topics={state.topicData}
@@ -25,6 +26,8 @@ const App = () => {
       setDisplayModal={setDisplayModal}
       setSelectedPhoto={setPhotoSelected}
       onTopicClick={handleTopicClick}
+      toggleDarkMode={toggleDarkMode}
+      darkMode={state.darkMode}
       />
 
       {/* only works if displayModal is true */}
@@ -35,6 +38,7 @@ const App = () => {
         toggleFavourite={updateToFavPhotoIds}
         favourites={state.favourites}
         isFavourite={(photoId)=> state.favourites.includes(photoId)}
+        darkMode={state.darkMode}
             
       />)}
       

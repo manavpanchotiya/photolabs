@@ -25,3 +25,14 @@
     color: #111;
   }
 }
+
+/* Dark Mode Styles */
+.App.dark-mode .topic-list__item button {
+  background-color: #1f2023;
+  color: white;
+  
+  &:hover {
+    color: #ddd;
+    text-decoration: overline;
+  }
+}

@@ -7,7 +7,8 @@ export const ACTIONS = {
   SET_TOPIC_DATA: 'SET_TOPIC_DATA',
   SELECT_PHOTO: 'SELECT_PHOTO',
   DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS',
-  GET_PHOTOS_BY_TOPICS: 'GET_PHOTOS_BY_TOPICS'
+  GET_PHOTOS_BY_TOPICS: 'GET_PHOTOS_BY_TOPICS',
+  TOGGLE_DARK_MODE: 'TOGGLE_DARK_MODE',
 };
 
 const initialState = {
@@ -15,8 +16,11 @@ const initialState = {
   displayModal: false,
   selectedPhoto: null,
   photoData: [],
-  topicData: []
+  topicData: [],
+  darkMode: false
 };
+
+
 
 function reducer(state, action) {
   switch (action.type) {
@@ -63,6 +67,12 @@ function reducer(state, action) {
         displayModal: action.payload
       };
     
+    case ACTIONS.TOGGLE_DARK_MODE:
+      return {
+        ...state,
+        darkMode: !state.darkMode
+      };
+    
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`
@@ -73,14 +83,28 @@ function reducer(state, action) {
 const useApplicationData = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-const handleTopicClick = (topicId) => {
-  fetch(`http://localhost:8001/api/topics/${topicId}/photos`)
+  //dark mode
+  const toggleDarkMode = () => {
+    const newMode = !state.darkMode;
+    dispatch({ type: ACTIONS.TOGGLE_DARK_MODE, payload: newMode });
+
+    if (newMode) {
+    document.documentElement.classList.add('dark-mode');
+    document.body.classList.add('dark-mode'); // Optional
+  } else {
+    document.documentElement.classList.remove('dark-mode');
+    document.body.classList.remove('dark-mode'); // Optional
+  }
+  };
+
+  const handleTopicClick = (topicId) => {
+    fetch(`http://localhost:8001/api/topics/${topicId}/photos`)
     .then(res => res.json())
     .then(data => {
       dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data });
     })
     .catch(err => console.error("Error fetching topic photos:", err));
-};
+  };
 
 
   //fetch photos from DB
@@ -124,7 +148,8 @@ const handleTopicClick = (topicId) => {
     setPhotoSelected,
     onClosePhotoDetailsModal,
     setDisplayModal,
-    handleTopicClick
+    handleTopicClick,
+    toggleDarkMode
   };
 };
 
